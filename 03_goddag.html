@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <input type="tekst" id="navn" />
+    <button>klik og kik i konsollen!</button>
+    <script>
+      dokument.querySelector("button").addEventListner("click", buttonClicked);
+      function buttonClicked() {
+        let brugerNavn = document.querySelector("#navn").value;
+        console.log("tillykke dit navn er $brugerNavn");
+      }
+    </script>
+  </body>
+</html>
