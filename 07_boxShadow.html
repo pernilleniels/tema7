@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Indhold 02</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+
+      main {
+        width: 80vw;
+        margin: 0 auto;
+      }
+
+      section {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+        grid-gap: 20px;
+      }
+
+      article {
+        border: 1px solid #333;
+        transition: all 0.1s;
+      }
+
+      .the_shadow {
+        box-shadow: 0px 0px 34px 2px rgba(0, 0, 0, 0.75);
+      }
+
+      img {
+        width: 100%;
+      }
+
+      h1,
+      footer {
+        text-align: center;
+      }
+
+      header,
+      footer {
+        padding: 10px 0;
+      }
+
+      article:nth-child(1) img {
+        cursor: pointer;
+      }
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <h1>Titel</h1>
+    </header>
+    <main>
+      <h2>Undertitel</h2>
+      <section>
+        <article>
+          <img src="https://placeimg.com/400/300/arch" alt="" class="first" />
+          <h3>Article 1</h3>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores,
+            assumenda tenetur iste reiciendis omnis, optio amet velit quibusdam
+            earum ad hic porro obcaecati incidunt eum cumque commodi accusamus
+            rerum laborum.
+          </p>
+        </article>
+        <article>
+          <img src="https://placeimg.com/400/300/any" alt="" />
+          <h3>Article 2</h3>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores,
+            assumenda tenetur iste reiciendis omnis, optio amet velit quibusdam
+            earum ad hic porro obcaecati incidunt eum cumque commodi accusamus
+            rerum laborum.
+          </p>
+        </article>
+      </section>
+    </main>
+    <footer>This is the footer</footer>
+    <script>
+      const articleSection = document.querySelector("section");
+      const title = document.querySelector("header h1");
+      const article1 = document.querySelector("article:nth-child(1)");
+      let img1 = document.querySelector("article:nth-child(1) img");
+      let img2 = document.querySelector("article:nth-child(2) img");
+      let img3;
+      const article1Heading = document.querySelector("article:nth-child(1) h3");
+      const article1Content = document.querySelector("article:nth-child(1) p");
+
+      document.addEventListener("DOMContentLoaded", start);
+
+      function start() {
+        title.textContent = "Billeder";
+        article1Heading.textContent = "Arkitektur";
+        article1Content.textContent = "Bygninger skaber rum";
+        img1.src = "maude.png";
+        img1.alt = "Caprice 30 - Maude";
+
+        let newArticle = document.createElement("article");
+        let newH3 = document.createElement("h3");
+        let newHeadlineText = document.createTextNode("Mennesker");
+        newH3.appendChild(newHeadlineText);
+        let newPic = document.createElement("img");
+        newPic.src = "https://placeimg.com/400/300/any?t=4";
+        let newContent = document.createElement("p");
+        newContent.textContent = "Her står der noget om mennesker";
+        newArticle.appendChild(newPic);
+        newArticle.appendChild(newH3);
+        newArticle.appendChild(newContent);
+        articleSection.appendChild(newArticle);
+
+        img1.addEventListener("click", skiftBillede);
+
+        /*
+        document
+          .querySelector("article:nth-child(1)")
+          .addEventListener("mouseover", theMouseOver);
+        document
+          .querySelector("article:nth-child(1)")
+          .addEventListener("mouseout", theMouseOut);
+        document
+          .querySelector("article:nth-child(2)")
+          .addEventListener("mouseover", theMouseOver);
+        document
+          .querySelector("article:nth-child(2)")
+          .addEventListener("mouseout", theMouseOut);
+        document
+          .querySelector("article:nth-child(3)")
+          .addEventListener("mouseover", theMouseOver);
+        document
+          .querySelector("article:nth-child(3)")
+          .addEventListener("mouseout", theMouseOut);
+          .addEventListener("mouseover", theMouseOver);
+*/
+
+        document.querySelectorAll("article").forEach((article) => {
+          article.addEventListener("mouseover", theMouseOver);
+          article.addEventListener("mouseout", theMouseOut);
+        });
+      }
+
+      function theMouseOver(obj) {
+        console.log("HEY", this);
+        this.classList.add("the_shadow");
+      }
+
+      function theMouseOut() {
+        console.log("HEY", this);
+        this.classList.remove("the_shadow");
+      }
+
+      function skiftBillede() {
+        // console.log(this);
+        let tal = Math.round(Math.random() * 10);
+        img1.src = "https://placeimg.com/400/300/arch?t=" + tal;
+      }
+    </script>
+  </body>
+</html>
