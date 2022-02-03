@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>A</title>
     <style>
+      p,
+      button {
+        cursor: pointer;
+      }
+
       .typo {
         font-family: monospace;
         color: darkblue;
@@ -47,18 +52,18 @@
     </p>
 
     <script>
-      document.addEventListener("DOMContentLoaed", start);
+      document.addEventListener("DOMContentLoaded", start);
+
       function start() {
-        let alleP = document.querySelectorAll("p");
-        alleP.forEach((p) => {
+        const alleP = document.querySelectorAll("p");
+        alleP.forEach((p) =>
           p.addEventListener("click", () => {
             p.classList.add("typo");
-          });
-        });
+          })
+        );
+
         document.querySelector("button").addEventListener("click", () => {
-          alleP.forEach((p) => {
-            p.classList.remove("typo");
-          });
+          alleP.forEach((p) => p.classList.remove("typo"));
         });
       }
     </script>
