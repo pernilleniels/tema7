@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <section></section>
+    <template>
+      <article>
+        <img src="" alt="" class="profilbillede" />
+        <h2 class="h2"></h2>
+        <p class="email"></p>
+      </article>
+    </template>
+    <style>
+      section {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        grid-gap: 1em;
+      }
+
+      article {
+        padding: 1rem;
+        border: 1px solid rgb(107, 168, 238);
+        cursor: pointer;
+      }
+
+      img {
+        max-width: 100%;
+      }
+      button {
+        cursor: pointer;
+        border-radius: 0;
+        border: 1px solid rgb(0, 26, 255);
+        font-size: 1rem;
+        background: none;
+      }
+      #single main {
+        max-width: 1200px;
+        margin-inline: auto;
+      }
+      #single article {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+      }
+      body {
+        background-color: rgb(194, 195, 214);
+      }
+    </style>
+
+    <script>
+      const url = "https://pernille-a260.restdb.io/rest/medlemmer";
+      const options = {
+        headers: {
+          "x-apikey": "61fcf8023f215f310a37be77",
+        },
+      };
+      async function hentData() {
+        const resspons = await fetch(url, options);
+        const json = await resspons.json();
+        vis(json);
+      }
+      const main = document.querySelector("section");
+      const template = document.querySelector("template").content;
+
+      function vis(json) {
+        console.log(json);
+        json.forEach((person) => {
+          const klon = template.cloneNode(true);
+          klon.querySelector("h2").textContent = `
+            ${person.fornavn} ${person.efternavn} `;
+
+          klon.querySelector(".email").textContent = `E-mail: ${person.email}`;
+          klon.querySelector(".profilbillede").src =
+            "faces/" + person.profilbillede;
+          main.appendChild(klon);
+        });
+      }
+      hentData();
+    </script>
+  </body>
+</html>
