@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <!-- CSS -->
+  <style>
+    body {
+      background-color: beige;
+    }
+    h2 {
+      text-align: center;
+    }
+    .kortbeskrivelse {
+      text-align: center;
+    }
+    .langbeskrivelse {
+      text-align: center;
+      margin-left: 5%;
+      margin-right: 5%;
+    }
+    .pris {
+      text-align: center;
+      margin-left: 5%;
+      margin-right: 5%;
+      margin-bottom: 5%;
+    }
+    img {
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+    }
+    main {
+      background-color: rgb(231, 168, 91);
+    }
+    h1 {
+      text-align: center;
+      font-family: "Courier New", Courier, monospace;
+      font-size: 3rem;
+    }
+    h2 {
+      font-family: "Courier New", Courier, monospace;
+      font-size: 2rem;
+    }
+    p {
+      font-family: "Courier New", Courier, monospace;
+    }
+    button {
+      font-family: "Courier New", Courier, monospace;
+      font-weight: bolder;
+      font-size: 1rem;
+    }
+  </style>
+
+  <body>
+    <main>
+      <button>Tilbage</button>
+      <article>
+        <h2 class="navn"></h2>
+        <p class="kortbeskrivelse"></p>
+        <img src="" alt="" class="billedeurl" />
+        <p class="langbeskrivelse"></p>
+        <p class="pris"></p>
+      </article>
+    </main>
+    <script>
+      const urlParams = new URLSearchParams(window.location.search);
+      const id = urlParams.get("id");
+      console.log({ id });
+      let retter;
+      const url = `https://babushka-dd8a.restdb.io/rest/menu/${id}`;
+      const key = "600ec2fb1346a1524ff12de4";
+      const options = {
+        headers: {
+          "x-apikey": "600ec2fb1346a1524ff12de4",
+        },
+      };
+
+      async function hentData() {
+        console.log("hentData");
+        const respons = await fetch(url, options);
+        retter = await respons.json();
+        visRetter();
+      }
+      function visRetter() {
+        console.log(retter);
+        document.querySelector("h2").textContent = retter.navn;
+        document.querySelector(".billedeurl").src =
+          "images/" + retter.billednavn + "-md.jpg";
+        document.querySelector(".kortbeskrivelse").textContent =
+          retter.kortbeskrivelse;
+        document.querySelector(".langbeskrivelse").textContent =
+          retter.langbeskrivelse;
+        document.querySelector(".pris").textContent = retter.pris;
+        document.querySelector(".oprindelsesregion").textContent =
+          retter.oprindelsesregion;
+      }
+
+      hentData();
+
+      document.querySelector("button").addEventListener("click", () => {
+        history.back();
+      });
+    </script>
+  </body>
+</html>
